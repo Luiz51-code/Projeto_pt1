@@ -3,13 +3,14 @@ const express = require('express');
 const cors = require("cors");
 
 const usuarioRoutes = require("./src/routes/usuario.route.js");
+const pedidoRoutes = require("./src/routes/pedido.route.js");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.use("/usuarios", usuarioRoutes);
-app.use("/usuarios/cadastrar", usuarioRoutes);
+app.use("/pedidos", pedidoRoutes);
 
 const PORT = process.env.PORT || 3000;
 
