@@ -13,13 +13,51 @@ const cadastrar = async (req, res) => {
             nome,
             senha,
             email,
-            idade
+            idade: Number(idade)
         }
-    })
+    });
+
     res.status(201).json(item).end();
+}
+
+const atualizar = async (req, res) => {
+
+    const id = Number(req.params.id);
+    const { nome, senha, email, idade } = req.body;
+
+    const item = await prisma.usuario.update({
+        where: {
+            id
+        },
+        data: {
+            nome,
+            senha,
+            email,
+            idade: Number(idade)
+        }
+    });
+
+    res.status(200).json(item).end();
+}
+
+const excluir = async (req, res) => {
+
+    const id = Number(req.params.id);
+
+    await prisma.usuario.delete({
+        where: {
+            id
+        }
+    });
+
+    res.status(200).json({
+        message: "Usuário excluído com sucesso"
+    }).end();
 }
 
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    atualizar,
+    excluir
 };
